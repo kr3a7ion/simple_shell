@@ -1,0 +1,18 @@
+/**
+ * _changeToAnyDirectory - change to any directory
+ *
+ * @prmData: data structure
+ * @prmCurrentDirectory: current directory path
+ */
+void _changeToAnyDirectory(appData_t *prmData, char *prmCurrentDirectory)
+{
+    char *newDirectory = prmData->arguments[1];
+
+    if (access(newDirectory, R_OK | W_OK) == 0) {
+        chdir(newDirectory);
+        _setenv(prmData->env, "OLDPWD", prmCurrentDirectory, 1);
+    } else {
+        perror(newDirectory);
+    }
+}
+
